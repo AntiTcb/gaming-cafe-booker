@@ -1,0 +1,69 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1757629069248,
+      "tag": "0000_aromatic_katie_power",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1757644083871,
+      "tag": "0001_colorful_shinko_yamashiro",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1757644439324,
+      "tag": "0002_silly_anthem",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1757916113790,
+      "tag": "0003_careless_madame_masque",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1757994859783,
+      "tag": "0004_overrated_professor_monster",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1757995054603,
+      "tag": "0005_even_hex",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1757997106046,
+      "tag": "0006_puzzling_grim_reaper",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "6",
+      "when": 1757998623140,
+      "tag": "0007_supreme_nicolaos",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "6",
+      "when": 1758346906015,
+      "tag": "0008_sad_ultimates",
+      "breakpoints": true
+    }
+  ]
+}

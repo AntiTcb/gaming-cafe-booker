@@ -1,0 +1,17 @@
+{
+    "mcpServers": {
+        "Context7": {
+            "type": "stdio",
+            "command": "npx",
+            "args": [
+                "-y",
+                "@upstash/context7-mcp@latest",
+                "--api-key",
+                "ctx7sk-16d215b8-94b0-4ca6-b6d7-5e24feb67930"
+            ]
+        },
+        "Svelte": {
+            "url": "https://svelte-llm.stanislav.garden/mcp/mcp"
+        }
+    }
+}

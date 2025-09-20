@@ -1,0 +1,42 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+@plugin 'daisyui' {
+  themes: 'halloween';
+}
+
+.modal-box-wide {
+  max-width: 90vw;
+}
+
+/* FullCalendar */
+.fc {
+  .nintendo-switch-2 {
+    background-color: red;
+  }
+  .playstation-5 {
+    background-color: blue;
+  }
+  .playstation-4 {
+    background-color: green;
+  }
+  .fc-event {
+    max-width: fit-content;
+  }
+  .fc-header-toolbar {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .fc-event-main {
+    @apply px-2;
+  }
+  .fc-event-title {
+    @apply text-sm;
+  }
+  .fc-event-subtitle {
+    @apply text-xs;
+  }
+
+  .fc-list-day-cushion {
+    @apply bg-base-100;
+  }
+}
