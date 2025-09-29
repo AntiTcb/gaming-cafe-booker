@@ -3,10 +3,11 @@ import { env } from '$env/dynamic/private';
 import { ac, adminRole, staffRole, userRole } from '$lib/server/auth/permissions';
 import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
-import { admin } from 'better-auth/plugins';
+import { admin, emailOTP } from 'better-auth/plugins';
 import { sveltekitCookies } from 'better-auth/svelte-kit';
 import { type DrizzleClient } from '../db';
 import * as schema from '../db/schema';
+import { sendForgotPasswordOtpEmail } from '$lib/rpc/email.remote';
 
 export const createAuth = (database: DrizzleClient) =>
   betterAuth({
@@ -22,6 +23,17 @@ export const createAuth = (database: DrizzleClient) =>
           user: userRole,
           staff: staffRole,
           admin: adminRole,
+        },
+      }),
+      emailOTP({
+        sendVerificationOTP: async ({ email, otp, type }) => {
+          switch (type) {
+            case 'forget-password':
+              await sendForgotPasswordOtpEmail({ email, otp });
+              break;
+            default:
+              return;
+          }
         },
       }),
       sveltekitCookies(getRequestEvent),
@@ -53,3 +65,5 @@ export const createAuth = (database: DrizzleClient) =>
       },
     },
   });
+
+export type BetterAuth = ReturnType<typeof createAuth>;

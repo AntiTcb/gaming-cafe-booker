@@ -58,10 +58,14 @@
     </div>
   </div>
 
-  {@render children?.()}
+  <main class="max-w-8xl container mx-auto p-4">
+    {@render children?.()}
+  </main>
 
-  <Toaster richColors position="top-center" closeButton />
+  <Toaster richColors position="bottom-right" duration={2000} />
   {#snippet pending()}
-    <div class="loading mx-auto block loading-lg loading-spinner text-4xl"></div>
+    <div
+      class="loading mx-auto flex h-svh max-h-svh loading-lg items-center justify-center loading-spinner text-4xl"
+    ></div>
   {/snippet}
 </svelte:boundary>

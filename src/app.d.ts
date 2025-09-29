@@ -1,7 +1,7 @@
 /// <reference types="./worker-configuration" />
 import type { DrizzleClient } from '$lib/server/db';
 import 'unplugin-icons/types/svelte';
-import type { BetterAuth } from './auth';
+import type { BetterAuth } from '$lib/server/auth';
 
 declare global {
   namespace App {

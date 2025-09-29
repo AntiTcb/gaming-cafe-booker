@@ -26,6 +26,7 @@ export const getReservations = query(
   async ({ start, end }) => {
     start ??= new Date('1970-01-01T00:00:00Z');
     end ??= new Date('2099-01-01T00:00:00Z');
+
     const reservations = await db()
       .select()
       .from(RESERVATIONS)
@@ -45,12 +46,31 @@ export const getReservations = query(
   }
 );
 
+export const getAdminReservations = query(async () => {
+  const reservations = await db()
+    .select()
+    .from(RESERVATIONS)
+    .innerJoin(GAMES, eq(RESERVATIONS.gameId, GAMES.id))
+    .innerJoin(GAME_SYSTEMS, eq(RESERVATIONS.gameSystemId, GAME_SYSTEMS.id))
+    .innerJoin(SYSTEM_TYPES, eq(GAME_SYSTEMS.systemTypeId, SYSTEM_TYPES.id))
+    .innerJoin(USERS, eq(RESERVATIONS.userId, USERS.id));
+
+  return reservations.map((r) => ({
+    ...r.reservations,
+    game: r.games,
+    gameSystem: r.game_systems,
+    systemType: r.system_types,
+    user: r.user,
+  }));
+});
+
 export const getAvailableGames = query(
   z.object({
     start: isoDateTimeToDate,
     end: isoDateTimeToDate,
   }),
   async ({ start, end }) => {
+    end.setSeconds(end.getSeconds() - 1);
     const reservations = await db()
       .select()
       .from(RESERVATIONS)
@@ -114,7 +134,7 @@ export const createReservation = command(
     end: isoDateTimeToDate,
     gameId: z.number(),
     gameSystemId: z.number(),
-    userId: z.number().optional(),
+    userId: z.string().optional(),
   }),
   async ({ start, end, gameId, gameSystemId, userId: reservationUserId }) => {
     const { locals, request } = getRequestEvent();
@@ -155,6 +175,34 @@ export const createReservation = command(
       success: true,
       message: 'Reservation created!',
       reservation: reservation[0],
+    };
+  }
+);
+
+export const cancelReservation = command(
+  z.object({
+    reservationId: z.number(),
+  }),
+  async ({ reservationId }) => {
+    const { locals, request } = getRequestEvent();
+    const { session, user } = await locals.auth.api.getSession({
+      headers: request.headers,
+    });
+
+    if (!session || !user || user.role !== 'admin') {
+      return {
+        success: false,
+        message: 'You are not authorized to cancel a reservation',
+      };
+    }
+
+    await db().delete(RESERVATIONS).where(eq(RESERVATIONS.id, reservationId));
+
+    await getReservations({}).refresh();
+
+    return {
+      success: true,
+      message: 'Reservation cancelled!',
     };
   }
 );

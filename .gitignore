@@ -27,3 +27,5 @@ vite.config.ts.timestamp-*
 *.db
 
 .cursor/mcp.json
+
+disabled.dev.vars

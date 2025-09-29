@@ -1,6 +1,8 @@
 <script lang="ts">
   import { STORE_NAME } from '$lib/constants';
   import { login } from '$lib/rpc/auth.remote';
+  import { sendForgotPasswordEmail } from '$lib/rpc/email.remote';
+  import { fade } from 'svelte/transition';
 
   let email = $state('');
   let password = $state('');
@@ -93,6 +95,16 @@
       <div class="divider">OR</div>
 
       <div class="space-y-2 text-center">
+        {#if email}
+          <p class="text-sm text-base-content/70" transition:fade>
+            Forgot your password?
+            <button
+              type="button"
+              class="link link-primary"
+              onclick={async () => await sendForgotPasswordEmail({ email })}>Send password reset email</button
+            >
+          </p>
+        {/if}
         <p class="text-sm text-base-content/70">
           Don't have an account?
           <a href="/register" class="link link-primary">Sign up here</a>

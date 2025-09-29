@@ -30,8 +30,17 @@
             "migrations_dir": "src/lib/server/db/migrations"
         }
     ],
+    "vars": {
+        "PUBLIC_SITE_DOMAIN": "booker.antitcb.dev",
+        "PUBLIC_BETTER_AUTH_URL": "https://booker.antitcb.dev/",
+        "PUBLIC_TRUSTED_ORIGINS": "https://booker.antitcb.dev"
+    },
     "env": {
         "staging": {
+            "route": {
+                "pattern": "staging-booker.antitcb.dev",
+                "custom_domain": true
+            },
             "d1_databases": [
                 {
                     "binding": "DB",
@@ -39,7 +48,12 @@
                     "database_id": "40f56119-5ff1-4bb1-9846-6ae655523ccc",
                     "migrations_dir": "src/lib/server/db/migrations"
                 }
-            ]
+            ],
+            "vars": {
+                "PUBLIC_SITE_DOMAIN": "staging-booker.antitcb.dev",
+                "PUBLIC_BETTER_AUTH_URL": "https://staging-booker.antitcb.dev/",
+                "PUBLIC_TRUSTED_ORIGINS": "https://staging-booker.antitcb.dev"
+            }
         }
     }
     /**
