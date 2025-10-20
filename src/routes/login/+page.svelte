@@ -22,7 +22,12 @@
       </div>
 
       <!-- Login Form -->
-      <form {...login} oninput={() => login.validate()}>
+      <form
+        {...login.enhance(async ({ form, data, submit }) => {
+          await submit();
+        })}
+        oninput={() => login.validate()}
+      >
         <div class="space-y-4">
           <!-- Email Field -->
           <div class="form-control">
@@ -30,17 +35,22 @@
               <span class="label-text font-semibold">Email</span>
             </label>
             <input
-              name={login.field('email')}
+              {...login.fields.email.as('email')}
               type="email"
               placeholder="Enter your email"
-              aria-invalid={!!login.issues?.email}
-              class={['input-bordered input w-full', login.issues?.email && 'input-error']}
+              aria-invalid={!!login.fields.email.issues}
+              class={['input-bordered input w-full', login.fields.email.issues() && 'input-error']}
               bind:value={email}
               autocomplete="email"
               required
             />
-            {#if login.issues?.email}
-              <p class="text-sm text-error">{login.issues?.email.map((error) => error.message).join('\n')}</p>
+            {#if login.fields.email.issues()}
+              <p class="text-sm text-error">
+                {login.fields.email
+                  .issues()!
+                  .map((error) => error.message)
+                  .join('\n')}
+              </p>
             {/if}
           </div>
 
@@ -50,17 +60,22 @@
               <span class="label-text font-semibold">Password</span>
             </label>
             <input
-              name={login.field('password')}
+              {...login.fields.password.as('password')}
               type="password"
               placeholder="Enter your password"
-              aria-invalid={!!login.issues?.password}
-              class={['input-bordered input w-full', login.issues?.password && 'input-error']}
+              aria-invalid={!!login.fields.password.issues()}
+              class={['input-bordered input w-full', login.fields.password.issues() && 'input-error']}
               bind:value={password}
               autocomplete="current-password"
               required
             />
-            {#if login.issues?.password}
-              <p class="text-sm text-error">{login.issues?.password.map((error) => error.message).join('\n')}</p>
+            {#if login.fields.password.issues()}
+              <p class="text-sm text-error">
+                {login.fields.password
+                  .issues()!
+                  .map((error) => error.message)
+                  .join('\n')}
+              </p>
             {/if}
           </div>
 
