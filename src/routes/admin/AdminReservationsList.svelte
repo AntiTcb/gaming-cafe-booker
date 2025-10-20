@@ -31,13 +31,12 @@
   };
 
   let date: string | null = $state(getMinDate());
-  let time: number | null = $state(0);
+  let time: string | null = $state('');
   let search: string | null = $state('');
 
   const dateTime = $derived.by(() => {
     if (!date || !time) return '';
-    const hour = time < 10 ? `0${time}` : time;
-    return `${date}T${hour}:00`;
+    return `${date}T${time}`;
   });
 
   // Create a date object treating the input as local time, then convert to UTC
@@ -45,9 +44,9 @@
     if (!dateTime) return '';
     const [dateStr, timeStr] = dateTime.split('T');
     const [year, month, day] = dateStr.split('-').map(Number);
-    const hour = parseInt(timeStr.split(':')[0]);
+    const [hour, minute] = timeStr.split(':').map(Number);
 
-    return DateTime.fromObject({ year, month, day, hour }).setZone('America/Halifax').toUTC().toISO() ?? '';
+    return DateTime.fromObject({ year, month, day, hour, minute }).setZone('America/Halifax').toUTC().toISO() ?? '';
   });
 
   const end = $derived.by(() => {
@@ -184,11 +183,25 @@
                   required
                 />
                 <select class="select-bordered select" name="time" bind:value={time}>
-                  <option disabled selected value={0}>Pick a Time</option>
+                  <option disabled selected value="">Pick a Time</option>
                   {#each Array.from({ length: STORE_HOURS.CLOSE - STORE_HOURS.OPEN }, (_, i) => STORE_HOURS.OPEN + i) as hour (hour)}
-                    {@const disabled = hour < currentDay.getHours() + 1 && currentDay.getHours() < STORE_HOURS.CLOSE}
-                    <option value={hour} {disabled}>{hour <= 12 ? hour : hour - 12}:00 {hour < 12 ? 'AM' : 'PM'}</option
-                    >
+                    {@const isToday = date === currentDay.toISOString().split('T')[0]}
+                    {@const currentHour = currentDay.getHours()}
+                    {@const currentMinutes = currentDay.getMinutes()}
+                    {@const show00 = !isToday || hour > currentHour}
+                    {@const show30 = !isToday || hour > currentHour || (hour === currentHour && currentMinutes < 30)}
+                    {#if show00}
+                      {@const displayHour = hour <= 12 ? hour : hour - 12}
+                      {@const period = hour < 12 ? 'AM' : 'PM'}
+                      {@const timeValue = `${hour.toString().padStart(2, '0')}:00`}
+                      <option value={timeValue}>{displayHour}:00 {period}</option>
+                    {/if}
+                    {#if show30}
+                      {@const displayHour = hour <= 12 ? hour : hour - 12}
+                      {@const period = hour < 12 ? 'AM' : 'PM'}
+                      {@const timeValue = `${hour.toString().padStart(2, '0')}:30`}
+                      <option value={timeValue}>{displayHour}:30 {period}</option>
+                    {/if}
                   {/each}
                 </select>
               </div>

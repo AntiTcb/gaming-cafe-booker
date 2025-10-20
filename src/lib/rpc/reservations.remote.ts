@@ -1,6 +1,6 @@
 import { getRequestEvent, query, command } from '$app/server';
 import { GAME_SYSTEMS, RESERVATIONS, SYSTEM_TYPES, GAMES, USERS } from '$lib/server/db/schema';
-import { and, between, eq, notInArray } from 'drizzle-orm';
+import { and, between, eq, notInArray, gt, lt } from 'drizzle-orm';
 import { z } from 'zod';
 
 const db = () => {
@@ -70,12 +70,18 @@ export const getAvailableGames = query(
     end: isoDateTimeToDate,
   }),
   async ({ start, end }) => {
-    end.setSeconds(end.getSeconds() - 1);
+    console.log('start/end', { start, end });
+    // Subtract 30 minutes from query start to account for cleanup buffer
+    // A reservation ending at X blocks the system until X+30min
+    const adjustedStart = new Date(start);
+    adjustedStart.setMinutes(adjustedStart.getMinutes() - 30);
     const reservations = await db()
       .select()
       .from(RESERVATIONS)
-      .where(between(RESERVATIONS.start, start, end))
+      .where(and(lt(RESERVATIONS.start, end), gt(RESERVATIONS.end, adjustedStart)))
       .all();
+
+    console.log('reservations', reservations);
 
     // get all reserved games by ID and tally the quantity
     const reservedGames = reservations
@@ -87,6 +93,8 @@ export const getAvailableGames = query(
         },
         {} as Record<number, number>
       );
+
+    console.log('reservedGames', reservedGames);
 
     let availableGames = await db()
       .select()
@@ -137,6 +145,9 @@ export const createReservation = command(
     userId: z.string().optional(),
   }),
   async ({ start, end, gameId, gameSystemId, userId: reservationUserId }) => {
+    // Add 30 minutes to the end time to account for the cleanup buffer
+    end.setMinutes(end.getMinutes() - 30);
+    end.setSeconds(end.getSeconds() + 1);
     const { locals, request } = getRequestEvent();
     const { session, user } = await locals.auth.api.getSession({
       headers: request.headers,
@@ -158,6 +169,19 @@ export const createReservation = command(
       }
     }
 
+    const availableGames = await getAvailableGames({ start: start.toISOString(), end: end.toISOString() });
+    console.log('availableGames', availableGames);
+    if (
+      !Object.values(availableGames.availableToReserve)
+        .flat()
+        .find(({ games }) => games.id === gameId)
+    ) {
+      return {
+        success: false,
+        message: 'The selected game is not available for this system at this time',
+      };
+    }
+
     const reservation = await db()
       .insert(RESERVATIONS)
       .values({
@@ -169,6 +193,7 @@ export const createReservation = command(
       })
       .returning();
 
+    await getAvailableGames({ start: start.toISOString(), end: end.toISOString() }).refresh();
     await getReservations({}).refresh();
 
     return {
