@@ -51,10 +51,11 @@ export const sendForgotPasswordOtpEmail = command(
     const formData = new FormData();
     formData.append('from', 'Gaming Booker <noreply@antitcb.dev>');
     formData.append('to', email);
-    formData.append('subject', `[${otp}] Your OTP for ${PUBLIC_SITE_DOMAIN}`);
+    formData.append('subject', `[${otp}] Password reset for ${PUBLIC_SITE_DOMAIN}`);
     formData.append(
       'html',
-      `<p>Your OTP is <strong>${otp}</strong></p><p>Go here to reset your password: <a href="https://${PUBLIC_SITE_DOMAIN}/resetPassword?data=${encodedData}">https://${PUBLIC_SITE_DOMAIN}/resetPassword?data=${encodedData}</a></p>`
+      `<p>Go here to reset your password: <a href="https://${PUBLIC_SITE_DOMAIN}/resetPassword?data=${encodedData}">https://${PUBLIC_SITE_DOMAIN}/resetPassword?data=${encodedData}</a></p>
+      <p>Your OTP is <strong>${otp}</strong></p>`
     );
 
     const resp = await fetch(`https://api.mailgun.net/v3/${env.MAILGUN_DOMAIN}/messages`, {
