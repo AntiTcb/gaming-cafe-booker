@@ -1,17 +1,17 @@
 import { command, getRequestEvent } from '$app/server';
 import { env } from '$env/dynamic/private';
-import { PUBLIC_SITE_DOMAIN } from '$env/static/public';
+import { env as publicEnv } from '$env/dynamic/public';
 import { z } from 'zod';
 
 export const sendTestEmail = command(z.object({ email: z.string() }), async ({ email }) => {
-  if (!PUBLIC_SITE_DOMAIN) throw new Error('PUBLIC_SITE_DOMAIN is not set');
+  if (!publicEnv.PUBLIC_SITE_DOMAIN) throw new Error('PUBLIC_SITE_DOMAIN is not set');
   if (!env.MAILGUN_API_KEY || !env.MAILGUN_DOMAIN) throw new Error('Mailgun is not configured');
 
   const formData = new FormData();
   formData.append('from', 'Gaming Booker <noreply@antitcb.dev>');
   formData.append('to', email);
   formData.append('subject', `Test Email`);
-  formData.append('html', `<p>This is a test email from https://${PUBLIC_SITE_DOMAIN}</p>`);
+  formData.append('html', `<p>This is a test email from https://${publicEnv.PUBLIC_SITE_DOMAIN}</p>`);
 
   const resp = await fetch(`https://api.mailgun.net/v3/${env.MAILGUN_DOMAIN}/messages`, {
     method: 'POST',
