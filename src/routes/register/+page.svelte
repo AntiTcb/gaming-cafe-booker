@@ -22,45 +22,57 @@
       <form {...register} oninput={() => register.validate()}>
         <div class="space-y-4">
           <div class="form-control">
-            <label class="label" for={register.field('name')}>
+            <label class="label" for={register.fields.name.as('text').name}>
               <span class="label-text font-semibold">Name</span>
             </label>
             <input
-              type="text"
-              name={register.field('name')}
-              class={['input-bordered input w-full', register.issues?.name && 'input-error']}
+              {...register.fields.name.as('text')}
+              class={['input-bordered input w-full', register.fields.name.issues() && 'input-error']}
               bind:value={name}
             />
-            {#if register.issues?.name}
-              <p class="text-sm text-error">{register.issues?.name.map((error) => error.message).join('\n')}</p>
+            {#if register.fields.name.issues()}
+              <p class="text-sm text-error">
+                {register.fields.name
+                  .issues()!
+                  .map((error) => error.message)
+                  .join('\n')}
+              </p>
             {/if}
           </div>
           <div class="form-control">
-            <label class="label" for={register.field('email')}>
+            <label class="label" for={register.fields.email.as('email').name}>
               <span class="label-text font-semibold">Email</span>
             </label>
             <input
-              type="email"
-              name={register.field('email')}
-              class={['input-bordered input w-full', register.issues?.email && 'input-error']}
+              {...register.fields.email.as('email')}
+              class={['input-bordered input w-full', register.fields.email.issues() && 'input-error']}
               bind:value={email}
             />
-            {#if register.issues?.email}
-              <p class="text-sm text-error">{register.issues?.email.map((error) => error.message).join('\n')}</p>
+            {#if register.fields.email.issues()}
+              <p class="text-sm text-error">
+                {register.fields.email
+                  .issues()!
+                  .map((error) => error.message)
+                  .join('\n')}
+              </p>
             {/if}
           </div>
           <div class="form-control">
-            <label class="label" for={register.field('password')}>
+            <label class="label" for={register.fields.password.as('password').name}>
               <span class="label-text font-semibold">Password</span>
             </label>
             <input
-              type="password"
-              name={register.field('password')}
-              class={['input-bordered input w-full', register.issues?.password && 'input-error']}
+              {...register.fields.password.as('password')}
+              class={['input-bordered input w-full', register.fields.password.issues() && 'input-error']}
               bind:value={password}
             />
-            {#if register.issues?.password}
-              <p class="text-sm text-error">{register.issues?.password.map((error) => error.message).join('\n')}</p>
+            {#if register.fields.password.issues()}
+              <p class="text-sm text-error">
+                {register.fields.password
+                  .issues()!
+                  .map((error) => error.message)
+                  .join('\n')}
+              </p>
             {/if}
           </div>
           <button

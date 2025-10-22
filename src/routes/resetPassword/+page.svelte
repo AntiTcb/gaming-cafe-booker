@@ -19,7 +19,11 @@
         <div class="space-y-4">
           <div class="form-control">
             <label class="label" for="password">Password</label>
-            <input type="password" name="password" class="input-bordered input w-full" bind:value={password} />
+            <input
+              {...resetPassword.fields.password.as('password')}
+              class="input-bordered input w-full"
+              bind:value={password}
+            />
           </div>
         </div>
         <button
