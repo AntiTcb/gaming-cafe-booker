@@ -81,8 +81,6 @@ export const getAvailableGames = query(
       .where(and(lt(RESERVATIONS.start, end), gt(RESERVATIONS.end, adjustedStart)))
       .all();
 
-    console.log('reservations', reservations);
-
     // get all reserved games by ID and tally the quantity
     const reservedGames = reservations
       .map((reservation) => reservation.gameId)
@@ -93,8 +91,6 @@ export const getAvailableGames = query(
         },
         {} as Record<number, number>
       );
-
-    console.log('reservedGames', reservedGames);
 
     let availableGames = await db()
       .select()
@@ -170,7 +166,6 @@ export const createReservation = command(
     }
 
     const availableGames = await getAvailableGames({ start: start.toISOString(), end: end.toISOString() });
-    console.log('availableGames', availableGames);
     if (
       !Object.values(availableGames.availableToReserve)
         .flat()
