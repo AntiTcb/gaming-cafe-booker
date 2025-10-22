@@ -61,7 +61,11 @@
     }
   );
 
-  const currentDay = new Date();
+  const currentDay = DateTime.now().setZone('America/Halifax');
+
+  $inspect('date', date);
+  $inspect('currentDay', currentDay.toLocal().toLocaleString());
+  $inspect('isTodaySelected', DateTime.fromISO(`${date}T00:00:00`).toLocaleString() === currentDay.toLocaleString());
 </script>
 
 <input type="hidden" name="start" value={start} />
@@ -75,11 +79,12 @@
       <select class="select-bordered select" name="time" bind:value={time}>
         <option disabled selected value="">Pick a Time</option>
         {#each Array.from({ length: STORE_HOURS.CLOSE - STORE_HOURS.OPEN }, (_, i) => STORE_HOURS.OPEN + i) as hour (hour)}
-          {@const isToday = date === currentDay.toISOString().split('T')[0]}
-          {@const currentHour = currentDay.getHours()}
-          {@const currentMinutes = currentDay.getMinutes()}
-          {@const show00 = !isToday || hour > currentHour}
-          {@const show30 = !isToday || hour > currentHour || (hour === currentHour && currentMinutes < 30)}
+          {@const isTodaySelected =
+            DateTime.fromISO(`${date}T00:00:00`).toLocaleString() === currentDay.toLocal().toLocaleString()}
+          {@const currentHour = currentDay.hour}
+          {@const currentMinutes = currentDay.minute}
+          {@const show00 = !isTodaySelected || hour > currentHour}
+          {@const show30 = !isTodaySelected || hour > currentHour || (hour === currentHour && currentMinutes < 30)}
           {#if show00}
             {@const displayHour = hour <= 12 ? hour : hour - 12}
             {@const period = hour < 12 ? 'AM' : 'PM'}
