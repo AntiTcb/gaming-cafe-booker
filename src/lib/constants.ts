@@ -1,4 +1,4 @@
-export const STORE_NAME = 'Level Up Gaming Cafe';
+export const STORE_NAME = 'Passage Gaming Pros';
 
 export const STORE_HOURS = {
   OPEN: 9,
