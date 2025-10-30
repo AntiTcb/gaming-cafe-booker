@@ -12,7 +12,7 @@
         "nodejs_als"
     ],
     "route": {
-        "pattern": "booker.antitcb.dev",
+        "pattern": "passagegamingpros.ca",
         "custom_domain": true
     },
     "assets": {
@@ -31,9 +31,9 @@
         }
     ],
     "vars": {
-        "PUBLIC_SITE_DOMAIN": "booker.antitcb.dev",
-        "PUBLIC_BETTER_AUTH_URL": "https://booker.antitcb.dev/",
-        "PUBLIC_TRUSTED_ORIGINS": "https://booker.antitcb.dev"
+        "PUBLIC_SITE_DOMAIN": "passagegamingpros.ca",
+        "PUBLIC_BETTER_AUTH_URL": "https://passagegamingpros.ca/",
+        "PUBLIC_TRUSTED_ORIGINS": "https://passagegamingpros.ca"
     },
     "env": {
         "staging": {

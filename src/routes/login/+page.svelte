@@ -2,6 +2,7 @@
   import { STORE_NAME } from '$lib/constants';
   import { login } from '$lib/rpc/auth.remote';
   import { sendForgotPasswordEmail } from '$lib/rpc/email.remote';
+  import { toast } from 'svelte-sonner';
   import { fade } from 'svelte/transition';
 
   let email = $state('');
@@ -116,7 +117,9 @@
             <button
               type="button"
               class="link link-primary"
-              onclick={async () => await sendForgotPasswordEmail({ email })}>Send password reset email</button
+              onclick={async () =>
+                await sendForgotPasswordEmail({ email }).then((r) => toast.success('Password reset email sent!'))}
+              >Send password reset email</button
             >
           </p>
         {/if}

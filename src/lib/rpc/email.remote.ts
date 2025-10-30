@@ -43,7 +43,7 @@ export const sendForgotPasswordEmail = command(z.object({ email: z.string() }), 
 export const sendForgotPasswordOtpEmail = command(
   z.object({ email: z.string(), otp: z.string() }),
   async ({ email, otp }) => {
-    if (!PUBLIC_SITE_DOMAIN) throw new Error('PUBLIC_SITE_DOMAIN is not set');
+    if (!publicEnv.PUBLIC_SITE_DOMAIN) throw new Error('PUBLIC_SITE_DOMAIN is not set');
     if (!env.MAILGUN_API_KEY || !env.MAILGUN_DOMAIN) throw new Error('Mailgun is not configured');
 
     const encodedData = Buffer.from(`${email}:${otp}`).toString('base64');
@@ -51,10 +51,10 @@ export const sendForgotPasswordOtpEmail = command(
     const formData = new FormData();
     formData.append('from', 'Gaming Booker <noreply@antitcb.dev>');
     formData.append('to', email);
-    formData.append('subject', `[${otp}] Password reset for ${PUBLIC_SITE_DOMAIN}`);
+    formData.append('subject', `[${otp}] Password reset for ${publicEnv.PUBLIC_SITE_DOMAIN}`);
     formData.append(
       'html',
-      `<p>Go here to reset your password: <a href="https://${PUBLIC_SITE_DOMAIN}/resetPassword?data=${encodedData}">https://${PUBLIC_SITE_DOMAIN}/resetPassword?data=${encodedData}</a></p>
+      `<p>Go here to reset your password: <a href="https://${publicEnv.PUBLIC_SITE_DOMAIN}/resetPassword?data=${encodedData}">https://${publicEnv.PUBLIC_SITE_DOMAIN}/resetPassword?data=${encodedData}</a></p>
       <p>Your OTP is <strong>${otp}</strong></p>`
     );
 
