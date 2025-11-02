@@ -8,7 +8,7 @@ export const sendTestEmail = command(z.object({ email: z.string() }), async ({ e
   if (!env.MAILGUN_API_KEY || !env.MAILGUN_DOMAIN) throw new Error('Mailgun is not configured');
 
   const formData = new FormData();
-  formData.append('from', 'Gaming Booker <noreply@antitcb.dev>');
+  formData.append('from', 'Gaming Booker <noreply@passagegamingpros.ca>');
   formData.append('to', email);
   formData.append('subject', `Test Email`);
   formData.append('html', `<p>This is a test email from https://${publicEnv.PUBLIC_SITE_DOMAIN}</p>`);
@@ -49,7 +49,7 @@ export const sendForgotPasswordOtpEmail = command(
     const encodedData = Buffer.from(`${email}:${otp}`).toString('base64');
 
     const formData = new FormData();
-    formData.append('from', 'Gaming Booker <noreply@antitcb.dev>');
+    formData.append('from', 'Gaming Booker <noreply@passagegamingpros.ca>');
     formData.append('to', email);
     formData.append('subject', `[${otp}] Password reset for ${publicEnv.PUBLIC_SITE_DOMAIN}`);
     formData.append(
