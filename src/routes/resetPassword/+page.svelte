@@ -9,7 +9,7 @@
 
 <div class="flex min-h-screen items-center justify-center bg-base-100 p-4">
   <div class="card w-full max-w-md border-4 bg-base-100 shadow-xl">
-    <div class="card-body">
+    <div class="card-body space-y-4">
       <h1 class="card-title">Reset Password</h1>
 
       <form {...resetPassword} oninput={() => resetPassword.validate()}>

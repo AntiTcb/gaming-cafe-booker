@@ -11,6 +11,9 @@
         "nodejs_compat",
         "nodejs_als"
     ],
+    "limits": {
+        "cpu_ms": 10000
+    },
     "route": {
         "pattern": "passagegamingpros.ca",
         "custom_domain": true
