@@ -21,23 +21,13 @@
         </div>
         <ul class="space-y-2 text-sm">
           <li class="flex items-start gap-2">
-            <svg
-              class="mt-0.5 h-5 w-5 flex-shrink-0 text-primary"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
+            <svg class="mt-0.5 h-5 w-5 shrink-0 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
             </svg>
             <span>Entire space for 2 hours</span>
           </li>
           <li class="flex items-start gap-2">
-            <svg
-              class="mt-0.5 h-5 w-5 flex-shrink-0 text-primary"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
+            <svg class="mt-0.5 h-5 w-5 shrink-0 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
             </svg>
             <span>Access to Fridge, stove and sink</span>
@@ -57,45 +47,25 @@
         </div>
         <ul class="space-y-2 text-sm">
           <li class="flex items-start gap-2">
-            <svg
-              class="mt-0.5 h-5 w-5 flex-shrink-0 text-secondary"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
+            <svg class="mt-0.5 h-5 w-5 shrink-0 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
             </svg>
             <span>Entire space for 2 hours</span>
           </li>
           <li class="flex items-start gap-2">
-            <svg
-              class="mt-0.5 h-5 w-5 flex-shrink-0 text-secondary"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
+            <svg class="mt-0.5 h-5 w-5 shrink-0 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
             </svg>
             <span>Access to Fridge, stove and sink</span>
           </li>
           <li class="flex items-start gap-2">
-            <svg
-              class="mt-0.5 h-5 w-5 flex-shrink-0 text-secondary"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
+            <svg class="mt-0.5 h-5 w-5 shrink-0 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
             </svg>
             <span>2 large pizzas (Pepperoni or Cheese)</span>
           </li>
           <li class="flex items-start gap-2">
-            <svg
-              class="mt-0.5 h-5 w-5 flex-shrink-0 text-secondary"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
+            <svg class="mt-0.5 h-5 w-5 shrink-0 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
             </svg>
             <span>Drinks</span>
@@ -115,31 +85,31 @@
         </div>
         <ul class="space-y-2 text-sm">
           <li class="flex items-start gap-2">
-            <svg class="mt-0.5 h-5 w-5 flex-shrink-0 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg class="mt-0.5 h-5 w-5 shrink-0 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
             </svg>
             <span>Entire space for 2 hours</span>
           </li>
           <li class="flex items-start gap-2">
-            <svg class="mt-0.5 h-5 w-5 flex-shrink-0 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg class="mt-0.5 h-5 w-5 shrink-0 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
             </svg>
             <span>Access to Fridge, stove and sink</span>
           </li>
           <li class="flex items-start gap-2">
-            <svg class="mt-0.5 h-5 w-5 flex-shrink-0 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg class="mt-0.5 h-5 w-5 shrink-0 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
             </svg>
             <span>2 large pizzas (Pepperoni or Cheese)</span>
           </li>
           <li class="flex items-start gap-2">
-            <svg class="mt-0.5 h-5 w-5 flex-shrink-0 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg class="mt-0.5 h-5 w-5 shrink-0 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
             </svg>
             <span>Drinks</span>
           </li>
           <li class="flex items-start gap-2">
-            <svg class="mt-0.5 h-5 w-5 flex-shrink-0 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg class="mt-0.5 h-5 w-5 shrink-0 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
             </svg>
             <span>Treat bag for all kids ($5 gift card to Coco & Riley's Candy store + 1 hr of free gaming)</span>
@@ -159,89 +129,49 @@
         </div>
         <ul class="space-y-2 text-sm">
           <li class="flex items-start gap-2">
-            <svg
-              class="mt-0.5 h-5 w-5 flex-shrink-0 text-warning"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
+            <svg class="mt-0.5 h-5 w-5 shrink-0 text-warning" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
             </svg>
             <span>Entire space for 2 hours</span>
           </li>
           <li class="flex items-start gap-2">
-            <svg
-              class="mt-0.5 h-5 w-5 flex-shrink-0 text-warning"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
+            <svg class="mt-0.5 h-5 w-5 shrink-0 text-warning" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
             </svg>
             <span>Access to Fridge, stove and sink</span>
           </li>
           <li class="flex items-start gap-2">
-            <svg
-              class="mt-0.5 h-5 w-5 flex-shrink-0 text-warning"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
+            <svg class="mt-0.5 h-5 w-5 shrink-0 text-warning" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
             </svg>
             <span>2 large pizzas (Pepperoni or Cheese)</span>
           </li>
           <li class="flex items-start gap-2">
-            <svg
-              class="mt-0.5 h-5 w-5 flex-shrink-0 text-warning"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
+            <svg class="mt-0.5 h-5 w-5 shrink-0 text-warning" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
             </svg>
             <span>Drinks</span>
           </li>
           <li class="flex items-start gap-2">
-            <svg
-              class="mt-0.5 h-5 w-5 flex-shrink-0 text-warning"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
+            <svg class="mt-0.5 h-5 w-5 shrink-0 text-warning" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
             </svg>
             <span>Treat bag for all kids ($5 gift card to Coco & Riley's Candy store + 1 hr of free gaming)</span>
           </li>
           <li class="flex items-start gap-2">
-            <svg
-              class="mt-0.5 h-5 w-5 flex-shrink-0 text-warning"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
+            <svg class="mt-0.5 h-5 w-5 shrink-0 text-warning" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
             </svg>
             <span>Candy surprise game</span>
           </li>
           <li class="flex items-start gap-2">
-            <svg
-              class="mt-0.5 h-5 w-5 flex-shrink-0 text-warning"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
+            <svg class="mt-0.5 h-5 w-5 shrink-0 text-warning" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
             </svg>
             <span>Birthday kid - Free tournament entry</span>
           </li>
           <li class="flex items-start gap-2">
-            <svg
-              class="mt-0.5 h-5 w-5 flex-shrink-0 text-warning"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
+            <svg class="mt-0.5 h-5 w-5 shrink-0 text-warning" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
             </svg>
             <span>Birthday kid - $20 gift certificate to Coco and Riley's Candy store</span>
@@ -251,13 +181,13 @@
     </div>
   </div>
 
-  <!-- Spiderman Add-on -->
-  <div class="card border-2 border-error bg-gradient-to-br from-error/20 to-error/5">
+  <!-- Spider-man Add-on -->
+  <div class="card border-2 border-error bg-linear-to-br from-error/20 to-error/5">
     <div class="card-body text-center">
       <div class="mb-2 text-4xl">🕷️</div>
-      <h2 class="card-title justify-center text-2xl text-error">Spiderman Character Add-on</h2>
+      <h2 class="card-title justify-center text-2xl text-error">Spider-Man Character Add-on</h2>
       <p class="mb-4 text-3xl font-bold">$50</p>
-      <p class="text-base-content/80">Option to have Spiderman character show up to the birthday party.</p>
+      <p class="text-base-content/80">Option to have Spider-Man character show up to the birthday party.</p>
       <p class="mt-2 text-sm font-semibold text-error">Requires at least 3 weeks notice 🙂</p>
     </div>
   </div>

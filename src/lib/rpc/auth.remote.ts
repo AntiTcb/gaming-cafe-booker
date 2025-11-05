@@ -18,7 +18,7 @@ export const register = form(
   async ({ name, email, password }) => {
     const { locals, request } = getRequestEvent();
     const resp = await locals.auth.api.signUpEmail({
-      body: { name, email, password, role: 'user' },
+      body: { name, email, password, role: '' },
       headers: request.headers,
       asResponse: true,
     });
@@ -27,6 +27,8 @@ export const register = form(
       await getCurrentUserSession().refresh();
       redirect(302, '/');
     }
+
+    console.error(await resp.text());
 
     return { error: 'Invalid email or password' };
   }
