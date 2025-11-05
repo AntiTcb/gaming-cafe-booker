@@ -3,6 +3,7 @@
   import AdminReservationsList from './AdminReservationsList.svelte';
   import AdminSystemsList from './AdminSystemsList.svelte';
   import AdminUsersList from './AdminUsersList.svelte';
+  import AdminWeeklyEvents from './AdminWeeklyEvents.svelte';
 </script>
 
 <h1 class="mb-4 text-2xl font-bold">Admin Panel</h1>
@@ -26,5 +27,10 @@
   <input type="radio" name="admin_tabs" class="tab" aria-label="Users" />
   <div class="tab-content border-base-300 bg-base-100 p-6">
     <AdminUsersList />
+  </div>
+
+  <input type="radio" name="admin_tabs" class="tab" aria-label="Weekly Events" />
+  <div class="tab-content border-base-300 bg-base-100 p-6">
+    <AdminWeeklyEvents />
   </div>
 </div>

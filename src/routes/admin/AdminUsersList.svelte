@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { createUser, deleteUser, listUsers } from '$lib/rpc/auth.remote';
+  import { createUser, deleteUser, editUser, listUsers } from '$lib/rpc/auth.remote';
   import { toast } from 'svelte-sonner';
 
   let limit = $state(100);
@@ -13,12 +13,34 @@
     role: 'user',
   });
 
+  let editingUser: string | null = $state(null);
+  let editForm: { userId: string; name: string; email: string; role: 'user' | 'staff' | 'admin' } = $state({
+    userId: '',
+    name: '',
+    email: '',
+    role: 'user',
+  });
+
   const handleCreate = async () => {
     const result = await createUser(createForm);
     await listUsers({ limit, offset }).refresh();
     if (result.success) {
       showCreateForm = false;
       createForm = { name: '', email: '', role: 'user' };
+      toast.success(result.message);
+      return;
+    }
+
+    toast.error(result.message);
+  };
+
+  const handleEdit = async (userId: string) => {
+    console.log('editForm', { userId, ...editForm });
+    const result = await editUser(editForm);
+    await listUsers({ limit, offset }).refresh();
+    if (result.success) {
+      editingUser = null;
+      editForm = { userId: '', name: '', email: '', role: 'user' };
       toast.success(result.message);
       return;
     }
@@ -69,7 +91,20 @@
               <td>{user.email}</td>
               <td class="capitalize">{user.role}</td>
               <td>
-                <button class="btn btn-primary">Edit</button>
+                <button
+                  class="btn btn-primary"
+                  onclick={() => {
+                    editingUser = user.id;
+                    editForm = {
+                      userId: user.id,
+                      name: user.name,
+                      email: user.email,
+                      role: (user.role as 'user' | 'staff' | 'admin') || 'user',
+                    };
+                  }}
+                >
+                  Edit
+                </button>
                 <button class="btn btn-error" onclick={() => (deleteModal = user.id)}>Delete</button>
               </td>
             </tr>
@@ -112,6 +147,42 @@
       <div class="modal-action">
         <button class="btn btn-primary" onclick={() => handleCreate()}>Add</button>
         <button class="btn btn-ghost" onclick={() => (showCreateForm = false)}>Cancel</button>
+      </div>
+    </div>
+  </div>
+{/if}
+
+{#if editingUser}
+  <div class="modal-open modal">
+    <div class="modal-box">
+      <h3 class="mb-4 text-lg font-bold">Edit User</h3>
+      <div class="space-y-4">
+        <div class="form-control">
+          <label class="label" for="name">
+            <span class="label-text">Name</span>
+          </label>
+          <input type="text" id="name" class="input-bordered input" bind:value={editForm.name} />
+        </div>
+        <div class="form-control">
+          <label class="label" for="email">
+            <span class="label-text">Email</span>
+          </label>
+          <input type="email" id="email" class="input-bordered input" bind:value={editForm.email} />
+        </div>
+        <div class="form-control">
+          <label class="label" for="role">
+            <span class="label-text">Role</span>
+          </label>
+          <select id="role" class="select-bordered select" bind:value={editForm.role}>
+            <option value="user">User</option>
+            <option value="staff">Staff</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-action">
+        <button class="btn btn-primary" onclick={() => handleEdit(editingUser!)}>Save</button>
+        <button class="btn btn-ghost" onclick={() => (editingUser = null)}>Cancel</button>
       </div>
     </div>
   </div>

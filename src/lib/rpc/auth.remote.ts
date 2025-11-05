@@ -117,6 +117,44 @@ export const createUser = command(
   }
 );
 
+export const editUser = command(
+  z.object({
+    userId: z.string(),
+    name: z.string().min(1),
+    email: z.email(),
+    role: z.enum(['user', 'staff', 'admin']),
+  }),
+  async ({ userId, name, email, role }) => {
+    const { locals, request } = getRequestEvent();
+    const { session, user } = await locals.auth.api.getSession({ headers: request.headers });
+    if (!session || !user || user.role !== 'admin') {
+      return {
+        success: false,
+        message: 'You are not authorized to edit a user',
+      };
+    }
+    const resp = await locals.auth.api.adminUpdateUser({
+      body: {
+        userId,
+        data: { name, email, role },
+      },
+      headers: request.headers,
+    });
+
+    if (!resp) {
+      return {
+        success: false,
+        message: 'Failed to edit user',
+      };
+    }
+    await listUsers({}).refresh();
+    return {
+      success: true,
+      message: 'User edited!',
+    };
+  }
+);
+
 export const deleteUser = command(
   z.object({
     userId: z.string(),

@@ -132,14 +132,27 @@ export const VERIFICATIONS = sqliteTable('verification', {
 });
 export type Verification = InferSelectModel<typeof VERIFICATIONS>;
 
+export const WEEKLY_EVENTS = sqliteTable('weekly_events', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  content: text('content').notNull().default(''),
+  updatedAt: integer('updated_at', { mode: 'timestamp' })
+    .default(sql`CURRENT_TIMESTAMP`)
+    .$onUpdate(() => /* @__PURE__ */ new Date())
+    .notNull(),
+  updatedBy: text('updated_by').references(() => USERS.id),
+});
+export type WeeklyEvent = InferSelectModel<typeof WEEKLY_EVENTS>;
+
 export const systemTypesInsertSchema = createInsertSchema(SYSTEM_TYPES);
 export const gameSystemsInsertSchema = createInsertSchema(GAME_SYSTEMS);
 export const gamesInsertSchema = createInsertSchema(GAMES);
 export const usersInsertSchema = createInsertSchema(USERS);
 export const reservationsInsertSchema = createInsertSchema(RESERVATIONS);
+export const weeklyEventsInsertSchema = createInsertSchema(WEEKLY_EVENTS);
 
 export const systemTypesUpdateSchema = createUpdateSchema(SYSTEM_TYPES);
 export const gameSystemsUpdateSchema = createUpdateSchema(GAME_SYSTEMS);
 export const gamesUpdateSchema = createUpdateSchema(GAMES);
 export const usersUpdateSchema = createUpdateSchema(USERS);
 export const reservationsUpdateSchema = createUpdateSchema(RESERVATIONS);
+export const weeklyEventsUpdateSchema = createUpdateSchema(WEEKLY_EVENTS);

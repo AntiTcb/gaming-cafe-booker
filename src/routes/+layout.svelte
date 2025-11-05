@@ -31,17 +31,20 @@
         <ul class="dropdown-content menu z-1 mt-3 w-52 menu-sm rounded-box bg-base-200 p-2">
           <li><a href="/">Home</a></li>
           <li><a href="/birthday-packages">Birthday Packages</a></li>
+          <li><a href="/weekly-events">Weekly Events</a></li>
           {#if user?.role === 'admin'}
             <li><a href="/admin">Admin</a></li>
           {/if}
         </ul>
       </div>
-      <a href="/" class="btn text-xl btn-ghost">🎮 Passage Gaming Pros</a>
+      <a href="/" class="btn btn-ghost sm:text-xl">🎮 Passage Gaming Pros</a>
     </div>
     <div class="navbar-center hidden lg:flex">
       <ul class="menu menu-horizontal px-1">
         <li><a href="/">Home</a></li>
         <li><a href="/birthday-packages">Birthday Packages</a></li>
+
+        <li><a href="/weekly-events">Weekly Events</a></li>
 
         {#if user?.role === 'admin'}
           <li><a href="/admin">Admin</a></li>
@@ -50,7 +53,7 @@
     </div>
     <div class="navbar-end">
       {#if session}
-        <span class="mr-4 text-sm text-base-content/70">Hi {user?.name}!</span>
+        <span class="mr-4 hidden text-sm text-base-content/70 sm:inline">Hi {user?.name}!</span>
         <button class="btn btn-primary" onclick={() => logout().then(() => invalidateAll())}>Logout</button>
       {:else}
         <a href="/login" class="btn btn-primary">Login</a>
@@ -71,19 +74,10 @@
       </div>
       <div class="text-center">
         <h3 class="text-sm font-bold">Contact</h3>
-        <a href="tel:902-495-7605" class="link text-xs link-primary">902-495-7605</a> |
+        <a href="tel:902-495-7605" class="link text-xs link-primary">902-495-7605</a>
         <a href="mailto:info@passagegamingpros.ca" class="link text-xs link-primary">info@passagegamingpros.ca</a>
       </div>
-      <!-- <div>
-        <h3 class="text-sm font-bold">Hours</h3>
-        <p class="text-xs text-base-content/70">9am - 8pm</p>
-        </div> -->
     </div>
-    <!-- <div class="border-base-300 text-center">
-      <p class="text-xs text-base-content/70">
-        © {new Date().getFullYear()} Passage Gaming Pros. All rights reserved.
-      </p>
-    </div> -->
   </footer>
 
   <Toaster richColors position="bottom-right" duration={2000} />
