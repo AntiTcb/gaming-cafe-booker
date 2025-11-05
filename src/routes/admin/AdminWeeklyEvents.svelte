@@ -28,10 +28,8 @@
 
   onMount(async () => {
     const weeklyEvent = await getWeeklyEvent();
-    console.log('weeklyEvent', weeklyEvent);
     content = weeklyEvent?.content || '';
   });
-  $inspect('content', content);
 </script>
 
 <div class="space-y-4">
@@ -49,7 +47,6 @@
       type="button"
       class="btn btn-primary"
       onclick={() => {
-        console.log('clicked');
         handleSave();
       }}
       disabled={isSaving}
