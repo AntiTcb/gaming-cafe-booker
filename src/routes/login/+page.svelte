@@ -4,9 +4,12 @@
   import { sendForgotPasswordEmail } from '$lib/rpc/email.remote';
   import { toast } from 'svelte-sonner';
   import { fade } from 'svelte/transition';
+  import { page } from '$app/stores';
 
   let email = $state('');
   let password = $state('');
+
+  const redirectUrl = $derived($page.url.searchParams.get('redirect') || '/');
 </script>
 
 <svelte:head>
@@ -22,6 +25,26 @@
         <p class="text-base-content/70">Sign in to {STORE_NAME}</p>
       </div>
 
+      <!-- Info Message -->
+      {#if redirectUrl.includes('openModal')}
+        <div class="alert alert-info mb-4">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6 shrink-0 stroke-current"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          <span class="text-sm">Please sign in to book a reservation</span>
+        </div>
+      {/if}
+
       <!-- Login Form -->
       <form
         {...login.enhance(async ({ form, data, submit }) => {
@@ -29,6 +52,7 @@
         })}
         oninput={() => login.validate()}
       >
+        <input type="hidden" name="redirect" value={redirectUrl} />
         <div class="space-y-4">
           <!-- Email Field -->
           <div class="form-control">
@@ -125,7 +149,7 @@
         {/if}
         <p class="text-sm text-base-content/70">
           Don't have an account?
-          <a href="/register" class="link link-primary">Sign up here</a>
+          <a href={redirectUrl.includes('openModal') ? `/register?redirect=${encodeURIComponent(redirectUrl)}` : '/register'} class="link link-primary">Sign up here</a>
         </p>
       </div>
     </div>

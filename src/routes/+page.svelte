@@ -1,5 +1,24 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
+  import { page } from '$app/stores';
   import ReservationCalendar from '$lib/components/ReservationCalendar.svelte';
+  import type { PageProps } from './$types';
+
+  let { data }: PageProps = $props();
+  const { session, user } = $derived(data);
+
+  let shouldOpenModal = $state(false);
+
+  $effect(() => {
+    const openModalParam = $page.url.searchParams.get('openModal');
+    if (openModalParam === 'true' && !shouldOpenModal) {
+      shouldOpenModal = true;
+      // Clean up URL parameter
+      const newUrl = new URL($page.url);
+      newUrl.searchParams.delete('openModal');
+      goto(newUrl.pathname + newUrl.search, { replaceState: true, noScroll: true });
+    }
+  });
 </script>
 
 <div class="container mx-auto max-w-sm space-y-6 p-4 md:max-w-4xl md:p-8">
@@ -38,5 +57,5 @@
     </div>
   </div>
 
-  <ReservationCalendar />
+  <ReservationCalendar session={{ session, user }} openModal={shouldOpenModal} />
 </div>

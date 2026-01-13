@@ -14,8 +14,9 @@ export const register = form(
     name: z.string().min(1),
     email: z.email(),
     password: z.string().min(8, 'Password must be at least 8 characters long'),
+    redirect: z.string().optional(),
   }),
-  async ({ name, email, password }) => {
+  async ({ name, email, password, redirect: redirectUrl }) => {
     const { locals, request } = getRequestEvent();
     const resp = await locals.auth.api.signUpEmail({
       body: { name, email, password, role: '' },
@@ -25,7 +26,9 @@ export const register = form(
 
     if (resp.ok) {
       await getCurrentUserSession().refresh();
-      redirect(302, '/');
+      // Validate redirect URL to prevent open redirects
+      const safeRedirect = redirectUrl && redirectUrl.startsWith('/') ? redirectUrl : '/';
+      redirect(302, safeRedirect);
     }
 
     console.error(await resp.text());
@@ -38,13 +41,17 @@ export const login = form(
   z.object({
     email: z.email(),
     password: z.string().min(8, 'Password must be at least 8 characters long'),
+    redirect: z.string().optional(),
   }),
-  async ({ email, password }) => {
+  async ({ email, password, redirect: redirectUrl }) => {
     const { locals, request } = getRequestEvent();
     const session = await locals.auth.api.getSession({ headers: request.headers });
 
+    // Validate redirect URL to prevent open redirects
+    const safeRedirect = redirectUrl && redirectUrl.startsWith('/') ? redirectUrl : '/';
+
     if (session) {
-      redirect(302, '/');
+      redirect(302, safeRedirect);
     }
 
     const response = await locals.auth.api.signInEmail({
@@ -58,7 +65,7 @@ export const login = form(
 
     if (response.ok) {
       await getCurrentUserSession().refresh();
-      redirect(302, '/');
+      redirect(302, safeRedirect);
     }
 
     return { error: 'Invalid email or password' };

@@ -71,12 +71,12 @@
 <input type="hidden" name="start" value={start} />
 <input type="hidden" name="end" value={end} />
 
-<div class="flex items-center justify-between gap-2">
-  <fieldset class="fieldset">
-    <legend class="fieldset-legend text-lg">Date & Time</legend>
-    <div class="join">
-      <input type="date" min={getMinDate()} class="input-bordered input" name="date" bind:value={date} required />
-      <select class="select-bordered select" name="time" bind:value={time}>
+<div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+  <fieldset class="fieldset w-full sm:w-auto">
+    <legend class="fieldset-legend text-base sm:text-lg">Date & Time</legend>
+    <div class="join w-full sm:w-auto">
+      <input type="date" min={getMinDate()} class="input-bordered input text-sm sm:text-base" name="date" bind:value={date} required />
+      <select class="select-bordered select text-sm sm:text-base" name="time" bind:value={time}>
         <option disabled selected value="">Pick a Time</option>
         {#each Array.from({ length: STORE_HOURS.CLOSE - STORE_HOURS.OPEN }, (_, i) => STORE_HOURS.OPEN + i) as hour (hour)}
           {@const isTodaySelected =
@@ -102,14 +102,14 @@
     </div>
   </fieldset>
   {#if availableGamesResource.current?.availableToReserve.length !== 0}
-    <label for="search" class="input">
-      <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <label for="search" class="input w-full sm:w-auto sm:min-w-[200px]">
+      <svg class="h-[1em] opacity-50 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
           <circle cx="11" cy="11" r="8"></circle>
           <path d="m21 21-4.3-4.3"></path>
         </g>
       </svg>
-      <input type="search" name="search" placeholder="Search Games" bind:value={search} />
+      <input type="search" name="search" placeholder="Search Games" class="text-sm sm:text-base" bind:value={search} />
     </label>
   {/if}
 </div>
@@ -129,19 +129,19 @@
       {@const systemId = games[0].games.systemTypeId}
       <div class="collapse-arrow collapse join-item border border-base-300 bg-base-100">
         <input type="radio" name="system-collapse" checked={systemName === 'Nintendo Switch 2'} />
-        <div class="collapse-title inline-flex items-center gap-2 text-lg font-semibold">
-          <SystemIcon class="size-6" />
-          {systemName} ({filteredGames.length}
-          {filteredGames.length === 1 ? 'game' : 'games'})
+        <div class="collapse-title inline-flex items-center gap-2 text-base sm:text-lg font-semibold px-3 sm:px-4 py-2 sm:py-3">
+          <SystemIcon class="size-5 sm:size-6 shrink-0" />
+          <span class="truncate">{systemName} ({filteredGames.length}
+          {filteredGames.length === 1 ? 'game' : 'games'})</span>
         </div>
         <div class="collapse-content">
-          <ul class="list max-h-72 divide-y overflow-y-auto">
+          <ul class="list max-h-60 sm:max-h-72 divide-y overflow-y-auto">
             {#each filteredGames as { games: game } (game.id)}
-              <li class="list-row rounded-none">
+              <li class="list-row rounded-none px-2 sm:px-4 py-2 sm:py-3">
                 <div></div>
-                <div>{game.name}</div>
+                <div class="text-sm sm:text-base truncate pr-2">{game.name}</div>
                 <button
-                  class="btn btn-primary"
+                  class="btn btn-primary btn-sm sm:btn-md shrink-0"
                   onclick={async () => {
                     const { success, message, reservation } = await createReservation({
                       gameId: game.id,

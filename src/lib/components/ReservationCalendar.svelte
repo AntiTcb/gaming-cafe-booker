@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
   import AddReservationModal from '$lib/components/AddReservationModal.svelte';
   import { getAvailableGames } from '$lib/rpc/reservations.remote';
   import { Calendar } from '@fullcalendar/core';
@@ -8,8 +9,20 @@
   import timeGridPlugin from '@fullcalendar/timegrid';
   import { onMount } from 'svelte';
 
+  interface Props {
+    session: { session: any; user: any } | null;
+    openModal?: boolean;
+  }
+
+  let { session, openModal = false }: Props = $props();
+
   let calendarElement: HTMLElement;
   let calendar: Calendar | null = $state(null);
+  let modalOpened = $state(false);
+
+  const openModalDialog = () => {
+    (document.getElementById('modal') as HTMLDialogElement)?.showModal();
+  };
 
   onMount(async () => {
     const start = new Date();
@@ -37,7 +50,12 @@
         add: {
           text: 'Add Reservation',
           click: function () {
-            (document.getElementById('modal') as HTMLDialogElement)?.showModal();
+            if (!session?.session || !session?.user) {
+              const redirectUrl = encodeURIComponent('/?openModal=true');
+              goto(`/login?redirect=${redirectUrl}`);
+              return;
+            }
+            openModalDialog();
           },
         },
       },
@@ -88,10 +106,17 @@
     });
     calendar.render();
   });
+
+  $effect(() => {
+    if (openModal && session?.session && session?.user && !modalOpened) {
+      openModalDialog();
+      modalOpened = true;
+    }
+  });
 </script>
 
 <dialog id="modal" class="modal">
-  <div class="modal-box-wide modal-box">
+  <div class="md:modal-box-wide modal-box w-full max-w-full p-3 sm:max-w-2xl sm:p-6">
     <AddReservationModal
       close={async () => {
         (document.getElementById('modal') as HTMLDialogElement)?.close();
