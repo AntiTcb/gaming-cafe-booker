@@ -116,7 +116,9 @@
 </script>
 
 <dialog id="modal" class="modal">
-  <div class="md:modal-box-wide modal-box w-full max-w-full p-3 sm:max-w-2xl sm:p-6">
+  <div
+    class="modal-box m-4 max-h-[calc(100vh-4rem)] w-[calc(100%-2rem)] max-w-lg overflow-y-auto p-4 sm:max-w-2xl sm:p-6 md:max-w-3xl"
+  >
     <AddReservationModal
       close={async () => {
         (document.getElementById('modal') as HTMLDialogElement)?.close();
