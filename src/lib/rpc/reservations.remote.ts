@@ -2,6 +2,7 @@ import { getRequestEvent, query, command } from '$app/server';
 import { GAME_SYSTEMS, RESERVATIONS, SYSTEM_TYPES, GAMES, USERS } from '$lib/server/db/schema';
 import { and, between, eq, notInArray, gt, lt } from 'drizzle-orm';
 import { z } from 'zod';
+import { sendReservationEmail } from './email.remote';
 
 const db = () => {
   const { locals } = getRequestEvent();
@@ -70,7 +71,6 @@ export const getAvailableGames = query(
     end: isoDateTimeToDate,
   }),
   async ({ start, end }) => {
-    console.log('start/end', { start, end });
     // Subtract 30 minutes from query start to account for cleanup buffer
     // A reservation ending at X blocks the system until X+30min
     const adjustedStart = new Date(start);
@@ -190,6 +190,8 @@ export const createReservation = command(
 
     await getAvailableGames({ start: start.toISOString(), end: end.toISOString() }).refresh();
     await getReservations({}).refresh();
+
+    await sendReservationEmail({ email: user.email, reservationId: reservation[0].id });
 
     return {
       success: true,
